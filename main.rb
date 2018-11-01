@@ -55,3 +55,7 @@ post '/callback' do
 
   "OK"
 end
+
+get '/liff' do
+  erb :liff
+end
