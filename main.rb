@@ -4,7 +4,10 @@ require "line/bot"
 
 require "sinatra/reloader" if development?
 
-ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"] || "sqlite3:db/development.db")
+configure :development, :test do
+  ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+end
+ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
 
 helpers do
   include Rack::Utils
@@ -58,4 +61,13 @@ end
 
 get '/liff' do
   erb :liff
+end
+
+post '/upload' do
+  Cartridge.create(tic: params[:file][:tempfile].read)
+  redirect '/upload'
+end
+
+get '/upload' do
+  'Uploaded'
 end
