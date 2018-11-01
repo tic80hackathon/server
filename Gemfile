@@ -7,7 +7,6 @@ gem "sinatra-contrib"
 gem "sinatra-activerecord"
 gem "line-bot-api"
 gem "rake"
-gem "mysql"
 
 gem 'pg', group: :production
 
