@@ -1,5 +1,6 @@
 require "sinatra"
 require "active_record"
+require "line/bot"
 
 require "sinatra/reloader" if development?
 
