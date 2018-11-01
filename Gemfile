@@ -16,3 +16,8 @@ group :development, :test do
   gem "sinatra-reloader"
   gem "foreman"
 end
+
+group :test do
+  gem "rspec"
+  gem "rack-test"
+end
