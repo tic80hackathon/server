@@ -76,6 +76,13 @@ post '/upload' do
   cartridge.url
 end
 
+get '/tic' do
+    id = params[:id]
+    c = CartridgeDAO.get_by_id(id)
+    content_type 'application/octet-stream'
+    c.tic
+end
+
 # NOTE ONLY for testing
 require './cartridge_dao'
 require 'json'
