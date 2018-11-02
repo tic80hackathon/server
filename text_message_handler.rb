@@ -17,7 +17,7 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said 4: `#{text}`")
+            reply_text(event, "You said 5: `#{text}`")
         end
     end
 

@@ -7,7 +7,7 @@ end
 
 class Cartridge < ActiveRecord::Base
     def url
-        'www.example.com/' + name
+        'https://example.com/' + name
     end
 end
 
