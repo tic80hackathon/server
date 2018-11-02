@@ -17,7 +17,7 @@ class CartridgeDAO
     end
 
     def self.get_by_id(id)
-        Cartridge.limit(1).select('*')[0]
+        Cartridge.limit(1).select('*').where(id: id)[0]
     end
 
     def self.latests(limit = 10)
