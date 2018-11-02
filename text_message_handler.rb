@@ -12,8 +12,7 @@ class TextMessageHandler
         when 'latest'
             cartridges = CartridgeDAO.latests(10)
             if cartridges.length > 0
-                # latest_cartridges2(event, cartridges)
-                reply_text(event, 'You have cartridges')
+                latest_cartridges2(event, cartridges)
             else
                 reply_text(event, 'No cartridges. Create one !')
             end
@@ -60,38 +59,24 @@ class TextMessageHandler
     end
 
     def latest_cartridges2(event, cartridges)
+        c = cartridges[0]
         reply_content(event, {
-           type: 'template',
-           altText: 'Image carousel alt text',
-           template: {
-             type: 'image_carousel',
-             columns: [
-               {
-                 imageUrl: THUMBNAIL_URL,
-                 action: { label: 'line.me', type: 'uri', uri: 'https://line.me' }
-               },
-               {
-                 imageUrl: THUMBNAIL_URL,
-                 action: { label: 'postback', type: 'postback', data: 'hello world' }
-               },
-               {
-                 imageUrl: THUMBNAIL_URL,
-                 action: { label: 'message', type: 'message', text: 'This is message' }
-               },
-               {
-                 imageUrl: THUMBNAIL_URL,
-                 action: {
-                   type: 'datetimepicker',
-                   label: "Datetime",
-                   data: 'action=sel',
-                   mode: 'datetime',
-                   initial: '2017-06-18T06:15',
-                   max: '2100-12-31T23:59',
-                   min: '1900-01-01T00:00'
-                 }
-               }
-             ]
-           }
-         })
+          type: 'template',
+          altText: 'Carousel alt text',
+          template: {
+            type: 'carousel',
+            columns: [
+              {
+                title: c.name,
+                text: c.description,
+                actions: [
+                  { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
+                  { label: 'Send postback', type: 'postback', data: 'hello world' },
+                  { label: 'Send message', type: 'message', text: 'This is message' }
+                ]
+              }
+            ]
+          }
+        })
     end
 end
