@@ -52,7 +52,11 @@ post '/callback' do
 end
 
 get '/liff' do
-  erb :liff
+  if params[:up]
+    erb :upload
+  else
+    erb :liff
+  end
 end
 
 post '/upload' do
@@ -60,7 +64,15 @@ post '/upload' do
   tic = params[:file][:tempfile]
   name = params[:name]
   desc = params[:description]
-  cartridge = CartridgeDAO.create(tic.read, name, desc)
+  user_id = params[:user_id]
+  display_name = params[:display_name]
+  cartridge = CartridgeDAO.create(
+    tic.read,
+    name,
+    desc,
+    user_id,
+    display_name
+  )
   cartridge.url
 end
 
@@ -81,13 +93,5 @@ get '/tic_data' do
 end
 
 get '/upload_page' do
-    '<form action="/upload" method="post" enctype="multipart/form-data">
-  name:<br>
-  <input type="text" name="name" value="cartridge name"><br>
-  Short Description:<br>
-  <input type="text" name="description" value="..."><br>
-  Select File to upload
-  <input type="file" name="file" id="file"><br><br>
-  <input type="submit" value="Submit">
-  </form>'
+  erb :upload
 end

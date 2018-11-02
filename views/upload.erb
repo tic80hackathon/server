@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TIC-80 cartridge uploader</title>
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+  </head>
+  <body>
+    <script>
+      liff.init(
+        data => {
+          const userId = data.context.userId;
+          document.getElementById("user_id").value = userId;
+          liff.getProfile()
+            .then(profile => {
+              document.getElementById("display_name").value = profile.displayName;
+            });
+        },
+        err => {
+        }
+      );
+    </script>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      name:<br>
+      <input type="text" name="name" value="cartridge name"><br>
+      Short Description:<br>
+      <input type="text" name="description" value="..."><br>
+      Select File to upload
+      <input type="file" name="file" id="file"><br><br>
+      <input type="submit" value="Submit">
+      <input type="hidden" name="user_id" id="user_id">
+      <input type="hidden" name="display_name" id="display_name">
+    </form>
+  </body>
+</html>
