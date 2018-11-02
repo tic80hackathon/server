@@ -17,7 +17,11 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "Unknown command: `#{text}`")
+            if text.start_with?('line://')
+                reply_text(event, "⇈ Press the above link to start the game ⇈")
+            else
+                reply_text(event, "Unknown command: `#{text}`")
+            end
         end
     end
 
