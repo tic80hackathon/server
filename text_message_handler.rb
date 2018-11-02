@@ -41,9 +41,9 @@ class TextMessageHandler
         columns = cartridges.map do |c|
             {
               title: c.name,
-              text: 'xxx',
+              text: c.url,
               actions: [
-                { label: 'Download game ', type: 'message', text: 'c.url' }
+                { label: 'Download game ', type: 'message', text: c.url }
               ]
             }
         end
