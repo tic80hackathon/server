@@ -1,10 +1,14 @@
 require "sinatra"
 require "active_record"
 require "line/bot"
+require "./text_message_handler"
 
 require "sinatra/reloader" if development?
 
-ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"] || "sqlite3:db/development.db")
+configure :development, :test do
+  ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+end
+ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
 
 helpers do
   include Rack::Utils
@@ -26,6 +30,10 @@ def client
   }
 end
 
+def text_handler
+    @text_handler ||= TextMessageHandler.new(client)
+end
+
 post '/callback' do
   body = request.body.read
 
@@ -40,11 +48,7 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        message = {
-          type: 'text',
-          text: event.message['text']
-        }
-        client.reply_message(event['replyToken'], message)
+          text_handler.handle(event)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
@@ -58,4 +62,13 @@ end
 
 get '/liff' do
   erb :liff
+end
+
+post '/upload' do
+  Cartridge.create(tic: params[:file][:tempfile].read)
+  redirect '/upload'
+end
+
+get '/upload' do
+  'Uploaded'
 end
