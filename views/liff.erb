@@ -149,122 +149,122 @@
          var Module = {
              canvas: document.getElementById('canvas')
              , arguments: [
-                 // 'quest.tic',
-                 '-uiscale',
-                 '2',
+                 'https://lfk-tic80.herokuapp.com/tic?id=4',
+                 //'-uiscale',
+                 //'2',
                  //'-uid',
                  //data.context.userId
              ]
          };
 
          /*
-         liff.sendMessages([
-             {
-                 type:'text',
-                 text:'Hello, World!'
-             }
-         ]).then(() => {
-             alert('message sent');
-         });
-         */
-
-            function dispatchKeyEvent(name, code) {
-                window.dispatchEvent(new KeyboardEvent(name,{'keyCode':code}));
+            liff.sendMessages([
+            {
+            type:'text',
+            text:'Hello, World!'
             }
+            ]).then(() => {
+            alert('message sent');
+            });
+          */
 
-            var keys = [document.getElementById("key_up"),
-                        document.getElementById("key_left"),
-                        document.getElementById("key_right"),
-                        document.getElementById("key_down"),
-                        document.getElementById("key_z"),
-                        document.getElementById("key_x")];
-            var keyCodes = [38, 37, 39, 40, 90, 88];
-            var keyboard = document.getElementById('keyboard');
-            var touches = [];
+         function dispatchKeyEvent(name, code) {
+             window.dispatchEvent(new KeyboardEvent(name,{'keyCode':code}));
+         }
 
-            keyboard.addEventListener("touchstart", touchStart, false);
-            keyboard.addEventListener("touchmove", touchMove, false);
-            keyboard.addEventListener("touchend", touchEnd, false);
+         var keys = [document.getElementById("key_up"),
+                     document.getElementById("key_left"),
+                     document.getElementById("key_right"),
+                     document.getElementById("key_down"),
+                     document.getElementById("key_z"),
+                     document.getElementById("key_x")];
+         var keyCodes = [38, 37, 39, 40, 90, 88];
+         var keyboard = document.getElementById('keyboard');
+         var touches = [];
 
-            function isKey(key) {
-                return keys.indexOf(key) >= 0;
-            }
+         keyboard.addEventListener("touchstart", touchStart, false);
+         keyboard.addEventListener("touchmove", touchMove, false);
+         keyboard.addEventListener("touchend", touchEnd, false);
 
-        function updateKeys() {
-            keys.forEach(function(key) {
-                         if (key.classList.contains("down")) {
-                            var keepDown = false;
-                            touches.forEach(function(touch) {
-                                                if (isKey(touch.key) && touch.key == key) {
-                                                    keepDown = true;
-                                                }
-                                            });
-                             if (keepDown == false) {
-                                dispatchKeyEvent('keyup', keyCodes[keys.indexOf(key)]);
-                                key.classList.remove("down");
-                             }
-                         } else {
-                             var shouldDown = false;
-                            var key;
-                             touches.forEach(function(touch) {
-                                                 if (isKey(touch.key) && touch.key == key) {
-                                                    shouldDown = true;
-                                                    key = touch.key;
-                                                }
-                                             });
-                             if (shouldDown) {
-                                dispatchKeyEvent('keydown', keyCodes[keys.indexOf(key)]);
-                                 key.classList.add("down");
-                             }
+         function isKey(key) {
+             return keys.indexOf(key) >= 0;
+         }
+
+         function updateKeys() {
+             keys.forEach(function(key) {
+                 if (key.classList.contains("down")) {
+                     var keepDown = false;
+                     touches.forEach(function(touch) {
+                         if (isKey(touch.key) && touch.key == key) {
+                             keepDown = true;
                          }
-                         });
-        }
+                     });
+                     if (keepDown == false) {
+                         dispatchKeyEvent('keyup', keyCodes[keys.indexOf(key)]);
+                         key.classList.remove("down");
+                     }
+                 } else {
+                     var shouldDown = false;
+                     var key;
+                     touches.forEach(function(touch) {
+                         if (isKey(touch.key) && touch.key == key) {
+                             shouldDown = true;
+                             key = touch.key;
+                         }
+                     });
+                     if (shouldDown) {
+                         dispatchKeyEvent('keydown', keyCodes[keys.indexOf(key)]);
+                         key.classList.add("down");
+                     }
+                 }
+             });
+         }
 
-        function touchStart(evt) {
-            evt.preventDefault();
-            var changedTouches = evt.changedTouches;
-            for (var i = 0; i < changedTouches.length; i++) {
-                var key = changedTouches[i].target;
-                touches.push({ id : changedTouches[i].identifier, key: key });
-            }
-            updateKeys();
-        }
+         function touchStart(evt) {
+             evt.preventDefault();
+             var changedTouches = evt.changedTouches;
+             for (var i = 0; i < changedTouches.length; i++) {
+                 var key = changedTouches[i].target;
+                 touches.push({ id : changedTouches[i].identifier, key: key });
+             }
+             updateKeys();
+         }
 
-        function touchEnd(evt) {
-            evt.preventDefault();
-            var changedTouches = evt.changedTouches;
-            for (var i = 0; i < changedTouches.length; i++) {
-                var index = getTouchIndex(changedTouches[i].identifier);
-                if (index >= 0) {
-                    touches.splice(index, 1);
-                }
-            }
-            updateKeys();
-        }
+         function touchEnd(evt) {
+             evt.preventDefault();
+             var changedTouches = evt.changedTouches;
+             for (var i = 0; i < changedTouches.length; i++) {
+                 var index = getTouchIndex(changedTouches[i].identifier);
+                 if (index >= 0) {
+                     touches.splice(index, 1);
+                 }
+             }
+             updateKeys();
+         }
 
-        function touchMove(evt) {
-            evt.preventDefault();
-            var changedTouches = evt.changedTouches;
-            for (var i = 0; i < changedTouches.length; i++) {
-                var touch = changedTouches[i];
-                var index = getTouchIndex(touch.identifier);
-                if (index >= 0) {
-                    var key = document.elementFromPoint(touch.pageX, touch.pageY);
-                    if (isKey(key))
-                    touches[index].key = key;
-                }
-            }
-            updateKeys();
-        }
+         function touchMove(evt) {
+             evt.preventDefault();
+             var changedTouches = evt.changedTouches;
+             for (var i = 0; i < changedTouches.length; i++) {
+                 var touch = changedTouches[i];
+                 var index = getTouchIndex(touch.identifier);
+                 if (index >= 0) {
+                     var key = document.elementFromPoint(touch.pageX, touch.pageY);
+                     if (isKey(key))
+                         touches[index].key = key;
+                 }
+             }
+             updateKeys();
+         }
 
-        function getTouchIndex(id) {
-            for (var i = 0; i < touches.length; i++) {
-                if (touches[i].id === id) {
-                    return i;
-                }
-            }
-            return -1;
-        }
+         function getTouchIndex(id) {
+             for (var i = 0; i < touches.length; i++) {
+                 if (touches[i].id === id) {
+                     return i;
+                 }
+             }
+             return -1;
+         }
         </script>
 
         <!-- TIC-80 -->
