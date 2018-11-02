@@ -12,7 +12,7 @@ class TextMessageHandler
         when 'latest'
             cartridges = CartridgeDAO.latests(10)
             if cartridges.length > 0
-                latest_cartridges(event)
+                latest_cartridges(event, cartridges)
             else
                 reply_text(event, 'No cartridges. Create one !')
             end
