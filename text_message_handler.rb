@@ -17,7 +17,7 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said X: `#{text}`")
+            reply_text(event, "You said Z: `#{text}`")
         end
     end
 
@@ -60,21 +60,26 @@ class TextMessageHandler
 
     def latest_cartridges2(event, cartridges)
         c = cartridges[0]
-        column =  [{
-            title: c.name,
-            text: c.description,
-            actions: [
-              { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
-              { label: 'Send postback', type: 'postback', data: 'hello world' },
-              { label: 'Send message', type: 'message', text: 'This is message' }
-            ]
-        }]
+        my columns = []
+        cartridges.each do |c|
+            column =  {
+                title: c.name,
+                text: c.description,
+                actions: [
+                  { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
+                  { label: 'Send postback', type: 'postback', data: 'hello world' },
+                  { label: 'Send message', type: 'message', text: 'This is message' }
+                ]
+            }
+            columns.push(column)
+        end
+
         reply_content(event, {
           type: 'template',
           altText: 'Carousel alt text',
           template: {
             type: 'carousel',
-            columns: column
+            columns: columns
           }
         })
     end
