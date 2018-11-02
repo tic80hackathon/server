@@ -17,7 +17,7 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said W: `#{text}`")
+            reply_text(event, "You said R: `#{text}`")
         end
     end
 
@@ -66,7 +66,7 @@ class TextMessageHandler
                 title: c.name,
                 text: c.description,
                 actions: [
-                  { label: 'Play this game !', type: 'uri', uri: c.url }
+                  { label: 'Play this game', type: 'uri', uri: 'www.example.com' }
                 ]
             }
             columns.push(column)
