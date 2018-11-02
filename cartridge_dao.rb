@@ -12,8 +12,12 @@ class Cartridge < ActiveRecord::Base
 end
 
 class CartridgeDAO
-    def self.create(tic, name = random_name, description = '...', user_id = nil, display_name = nil)
-      Cartridge.create(tic: tic, name: name, description: description, user_id: user_id, display_name: display_name)
+    def self.create(tic, name = random_name, description = '...')
+      Cartridge.create(tic: tic, name: name, description: description)
+    end
+
+    def self.get_by_id(id)
+        Cartridge.limit(1).select('*')[0]
     end
 
     def self.latests(limit = 10)
