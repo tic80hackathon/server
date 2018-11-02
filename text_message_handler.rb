@@ -17,7 +17,7 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said 1: `#{text}`")
+            reply_text(event, "You said 2: `#{text}`")
         end
     end
 
@@ -64,7 +64,7 @@ class TextMessageHandler
         cartridges.each do |c|
             column =  {
                 title: c.name,
-                text: c.description,
+                text: c.url,
                 actions: [
                   { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
                   { label: 'Send postback', type: 'postback', data: 'hello world' },
