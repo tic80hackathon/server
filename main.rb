@@ -1,6 +1,7 @@
 require "sinatra"
 require "active_record"
 require "line/bot"
+require "text_message_handler"
 
 require "sinatra/reloader" if development?
 
@@ -29,6 +30,10 @@ def client
   }
 end
 
+def text_handler
+    @text_handler ||= TextMessageHandler.new(client)
+end
+
 post '/callback' do
   body = request.body.read
 
@@ -43,11 +48,12 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        message = {
-          type: 'text',
-          text: event.message['text']
-        }
-        client.reply_message(event['replyToken'], message)
+          text_handler.handle(event)
+          # message = {
+          #   type: 'text',
+          #   text: event.message['text']
+          # }
+          # client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")

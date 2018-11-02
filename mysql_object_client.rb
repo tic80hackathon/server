@@ -7,8 +7,6 @@ require 'mysql'
 # DB_PASSWD = <password>
 # https://nopaste2.linecorp.com/entry/d9b63212-ff0b-432e-aca4-3403da65c9c8
 
-Endpoint = 'https://line-objects-dev.com'
-
 class MysqlObjectClient
     def initialize()
       host = ENV['DB_HOST'];
@@ -25,6 +23,7 @@ class MysqlObjectClient
         res = @con.query("SELECT data FROM cartridge WHERE name = '#{name}'")
         puts res.fetch_row
     end
+
     def delete_object(name)
         res = @con.query("DELETE FROM cartridge WHERE name = '#{name}'")
     end
