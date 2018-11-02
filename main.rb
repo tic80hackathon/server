@@ -1,5 +1,6 @@
 require "sinatra"
 require "line/bot"
+require "base64"
 require "./text_message_handler"
 
 require "sinatra/reloader" if development?
@@ -60,14 +61,19 @@ get '/liff' do
 end
 
 post '/upload' do
+  tic =
+    if !params[:file].blank?
+      params[:file][:tempfile].read
+    else
+      Base64.decode64(params[:file_base64])
+    end
   # TODO: handle uploading name and description.
-  tic = params[:file][:tempfile]
   name = params[:name]
   desc = params[:description]
   user_id = params[:user_id]
   display_name = params[:display_name]
   cartridge = CartridgeDAO.create(
-    tic.read,
+    tic,
     name,
     desc,
     user_id,
