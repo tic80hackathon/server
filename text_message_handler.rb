@@ -12,7 +12,7 @@ class TextMessageHandler
         when 'latest'
             cartridges = CartridgeDAO.latests(10)
             if cartridges.length > 0
-                latest_cartridges(event, cartridges)
+                latest_cartridges2(event, cartridges)
             else
                 reply_text(event, 'No cartridges. Create one !')
             end
@@ -54,6 +54,36 @@ class TextMessageHandler
           template: {
             type: 'carousel',
             columns: columns
+          }
+        })
+    end
+
+    def latest_cartridges2(event, cartridges)
+        columns = cartridges.map do |c|
+            {
+              title: c.name,
+              text: c.description,
+              actions: [
+                { label: 'Download game ', type: 'uri', uri: c.url },
+              ]
+            }
+        end
+        c = cartridges[0]
+
+        reply_content(event, {
+          type: 'template',
+          altText: 'List latest cartridges',
+          template: {
+            type: 'carousel',
+            columns: [
+                {
+                  title: c.name,
+                  text: c.description,
+                  actions: [
+                    { label: 'Download game ', type: 'uri', uri: c.url },
+                  ]
+              }
+            ]
           }
         })
     end
