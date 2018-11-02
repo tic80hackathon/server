@@ -12,12 +12,12 @@ class TextMessageHandler
         when 'latest'
             cartridges = CartridgeDAO.latests(10)
             if cartridges.length > 0
-                latest_cartridges2(event, cartridges)
+                latest_cartridges(event, cartridges)
             else
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said 5: `#{text}`")
+            reply_text(event, "You said 6: `#{text}`")
         end
     end
 
