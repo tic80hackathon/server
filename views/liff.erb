@@ -106,57 +106,60 @@
         <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     </head>
     <body style="margin:0; padding:0;">
-	      <div>
-		        <canvas style="margin: 0 auto; display: block;" id="canvas" oncontextmenu="event.preventDefault()" onmousedown="window.focus()"></canvas>
-	      </div>
 
-	      <div id="add-modal" class="modal">
-		        <div class="modal-content">
-			          <span class="close">&times</span>
-			          <p>Select a file to add to the computer</p>
-			          <p><input type="file" id="upload-input"></input></p>
-		        </div>
-	      </div>
+        <div style="width : 320px;">
+	          <div>
+		            <canvas style="margin: 0 auto; display: block;" id="canvas" oncontextmenu="event.preventDefault()" onmousedown="window.focus()"></canvas>
+	          </div>
 
-        <input type="text" id=""></input>
+	          <div id="add-modal" class="modal">
+		            <div class="modal-content">
+			              <span class="close">&times</span>
+			              <p>Select a file to add to the computer</p>
+			              <p><input type="file" id="upload-input"></input></p>
+		            </div>
+	          </div>
 
-        <!-- Game Controller -->
-        <div id="keyboard">
-            <div class="key_up" id="key_up"></div>
-            <div class="key_left" id="key_left"></div>
-            <div class="key_right" id="key_right"></div>
-            <div class="key_down" id="key_down"></div>
-            <div class="key_z" id="key_z"></div>
-            <div class="key_x" id="key_x"></div>
+            <div contenteditable="true" width="50" height="50">keyboard</div>
+
+            <!-- Game Controller -->
+            <div id="keyboard">
+                <div class="key_up" id="key_up"></div>
+                <div class="key_left" id="key_left"></div>
+                <div class="key_right" id="key_right"></div>
+                <div class="key_down" id="key_down"></div>
+                <div class="key_z" id="key_z"></div>
+                <div class="key_x" id="key_x"></div>
+            </div>
         </div>
 
-
         <script type="text/javascript">
-             liff.init(
-                 data => {
-                     var Module = {
+         liff.init(
+             data => {
+                 var Module = {
                      canvas: document.getElementById('canvas')
-                         , arguments: [
-                             '-uiscale',
-                             '2',
-                             '-uid',
-                             data.context.userId
-                         ]
-                     };
+                     , arguments: [
+                         // 'quest.tic',
+                         '-uiscale',
+                         '1',
+                         '-uid',
+                         data.context.userId
+                     ]
+                 };
 
-                     liff.sendMessages([
-                         {
-                             type:'text',
-                             text:'Hello, World!'
-                         }
-                     ]).then(() => {
-                         alert('message sent');
-                     });
-                 },
-                 err => {
-                     // LIFF initialization failed
-                 }
-             );
+                 liff.sendMessages([
+                     {
+                         type:'text',
+                         text:'Hello, World!'
+                     }
+                 ]).then(() => {
+                     alert('message sent');
+                 });
+             },
+             err => {
+                 // LIFF initialization failed
+             }
+         );
 
 	      </script>
 
