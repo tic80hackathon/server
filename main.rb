@@ -3,6 +3,12 @@ require "line/bot"
 require "./text_message_handler"
 
 require "sinatra/reloader" if development?
+require "active_record"
+
+configure :development, :test do
+  ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
+end
+ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
 
 get '/' do
   'Hello World!'

@@ -1,10 +1,5 @@
 require "active_record"
 
-configure :development, :test do
-  ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
-end
-ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
-
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
