@@ -136,28 +136,9 @@
         <script type="text/javascript">
          liff.init(
              data => {
-                 var Module = {
-                     canvas: document.getElementById('canvas')
-                     , arguments: [
-                         // 'quest.tic',
-                         '-uiscale',
-                         '1',
-                         '-uid',
-                         data.context.userId
-                     ]
-                 };
-
-                 liff.sendMessages([
-                     {
-                         type:'text',
-                         text:'Hello, World!'
-                     }
-                 ]).then(() => {
-                     alert('message sent');
-                 });
              },
              err => {
-                 // LIFF initialization failed
+
              }
          );
 
@@ -165,6 +146,28 @@
 
         <!-- Game Controller. See https://stackoverflow.com/questions/36169470/multi-touch-for-html5-canvas -->
         <script type="text/javascript">
+         var Module = {
+             canvas: document.getElementById('canvas')
+             , arguments: [
+                 // 'quest.tic',
+                 '-uiscale',
+                 '2',
+                 //'-uid',
+                 //data.context.userId
+             ]
+         };
+
+         /*
+         liff.sendMessages([
+             {
+                 type:'text',
+                 text:'Hello, World!'
+             }
+         ]).then(() => {
+             alert('message sent');
+         });
+         */
+
             function dispatchKeyEvent(name, code) {
                 window.dispatchEvent(new KeyboardEvent(name,{'keyCode':code}));
             }
