@@ -1,23 +1,14 @@
 require "sinatra"
-require "active_record"
 require "line/bot"
 require "./text_message_handler"
 
 require "sinatra/reloader" if development?
+require "active_record"
 
 configure :development, :test do
   ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 end
 ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
-
-helpers do
-  include Rack::Utils
-  alias_method :h, :escape_html
-end
-
-class Cartridge < ActiveRecord::Base
-
-end
 
 get '/' do
   'Hello World!'
@@ -65,10 +56,18 @@ get '/liff' do
 end
 
 post '/upload' do
-  Cartridge.create(tic: params[:file][:tempfile].read)
-  redirect '/upload'
+  # TODO: handle uploading name and description.
+  cartridge = CartridgeDAO.create(params[:file][:tempfile].read)
+  cartridge.url
 end
 
-get '/upload' do
-  'Uploaded'
+# NOTE ONLY for testing
+require './cartridge_dao'
+require 'json'
+get '/create' do
+    CartridgeDAO.create(tic: 'data' + rand(100000000).to_s, name: 'cartridge_' + rand(100000).to_s, description: 'This is cartridge XXXX')
+end
+
+get '/latest_cartridges' do
+    CartridgeDAO.latests(10).to_json
 end
