@@ -10,6 +10,99 @@
 	      <style type="text/css">
 		     .modal{display:none;position:fixed;z-index:1;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}.modal-content{position:relative;background-color:#fefefe;margin:auto;padding:2px 16px;border:1px solid #888;width:500px;box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);-webkit-animation-name:animatetop;-webkit-animation-duration:.4s;animation-name:animatetop;animation-duration:.4s}@keyframes animatetop{from{top:-300px;opacity:0}to{top:0;opacity:1}}.close{color:#000;float:right;font-size:28px;font-weight:700}.close:focus,.close:hover{color:#000;text-decoration:none;cursor:pointer}
 	      </style>
+
+        <!-- Game Controller -->
+        <style type="text/css">
+            keyboard {
+                position:relative;
+                background:#333;
+            }
+        .key_up {
+            top: 10px;
+            left: 65px;
+            height:154px;
+            width:105px;
+            margin-top: -38.5px;
+            margin-left: -26.25px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/up.png");
+        }
+        .key_up.down {
+            background-image: url("img/up_down.png");
+        }
+        .key_left {
+            top: -50px;
+            left: 10px;
+            height:112px;
+            width:150px;
+            margin-top: -28px;
+            margin-left: -37.5px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/left.png");
+        }
+        .key_left.down {
+            background-image: url("img/left_down.png");
+        }
+        .key_right {
+            top: -135px;
+            left: 98px;
+            height:112px;
+            width:150px;
+            margin-top: -28px;
+            margin-left: -37.5px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/right.png");
+        }
+        .key_right.down {
+            background-image: url("img/right_down.png");
+        }
+        .key_down {
+            top: -185px;
+            left: 65px;
+            height:154px;
+            width:105px;
+            margin-top: -38.5px;
+            margin-left: -26.25px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/down.png");
+        }
+        .key_down.down {
+            background-image: url("img/down_down.png");
+        }
+        .key_z {
+            top: -315px;
+            left: 205px;
+            height:177px;
+            width:169px;
+            margin-top: -44.25px;
+            margin-left: -42.25px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/z.png");
+        }
+        .key_z.down {
+            background-image: url("img/z_down.png");
+        }
+        .key_x {
+            top: -525px;
+            left: 275px;
+            height:177px;
+            width:169px;
+            margin-top: -44.25px;
+            margin-left: -42.25px;
+            position:relative;
+            -webkit-transform: scale(0.5);
+            background-image: url("img/x.png");
+        }
+        .key_x.down {
+            background-image: url("img/x_down.png");
+        }
+        </style>
+
         <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     </head>
     <body style="margin:0; padding:0;">
@@ -24,6 +117,17 @@
 			          <p><input type="file" id="upload-input"></input></p>
 		        </div>
 	      </div>
+
+        <!-- Game Controller -->
+        <div id="keyboard">
+            <div class="key_up" id="key_up"></div>
+            <div class="key_left" id="key_left"></div>
+            <div class="key_right" id="key_right"></div>
+            <div class="key_down" id="key_down"></div>
+            <div class="key_z" id="key_z"></div>
+            <div class="key_x" id="key_x"></div>
+        </div>
+
 
         <script type="text/javascript">
              liff.init(
@@ -50,6 +154,109 @@
                          ]
 		         };
 	      </script>
+
+        <!-- Game Controller. See https://stackoverflow.com/questions/36169470/multi-touch-for-html5-canvas -->
+        <script type="text/javascript">
+            function dispatchKeyEvent(name, code) {
+                window.dispatchEvent(new KeyboardEvent(name,{'keyCode':code}));
+            }
+
+            var keys = [document.getElementById("key_up"),
+                        document.getElementById("key_left"),
+                        document.getElementById("key_right"),
+                        document.getElementById("key_down"),
+                        document.getElementById("key_z"),
+                        document.getElementById("key_x")];
+            var keyCodes = [38, 37, 39, 40, 90, 88];
+            var keyboard = document.getElementById('keyboard');
+            var touches = [];
+
+            keyboard.addEventListener("touchstart", touchStart, false);
+            keyboard.addEventListener("touchmove", touchMove, false);
+            keyboard.addEventListener("touchend", touchEnd, false);
+
+            function isKey(key) {
+                return keys.indexOf(key) >= 0;
+            }
+
+        function updateKeys() {
+            keys.forEach(function(key) {
+                         if (key.classList.contains("down")) {
+                            var keepDown = false;
+                            touches.forEach(function(touch) {
+                                                if (isKey(touch.key) && touch.key == key) {
+                                                    keepDown = true;
+                                                }
+                                            });
+                             if (keepDown == false) {
+                                dispatchKeyEvent('keyup', keyCodes[keys.indexOf(key)]);
+                                key.classList.remove("down");
+                             }
+                         } else {
+                             var shouldDown = false;
+                            var key;
+                             touches.forEach(function(touch) {
+                                                 if (isKey(touch.key) && touch.key == key) {
+                                                    shouldDown = true;
+                                                    key = touch.key;
+                                                }
+                                             });
+                             if (shouldDown) {
+                                dispatchKeyEvent('keydown', keyCodes[keys.indexOf(key)]);
+                                 key.classList.add("down");
+                             }
+                         }
+                         });
+        }
+
+        function touchStart(evt) {
+            evt.preventDefault();
+            var changedTouches = evt.changedTouches;
+            for (var i = 0; i < changedTouches.length; i++) {
+                var key = changedTouches[i].target;
+                touches.push({ id : changedTouches[i].identifier, key: key });
+            }
+            updateKeys();
+        }
+
+        function touchEnd(evt) {
+            evt.preventDefault();
+            var changedTouches = evt.changedTouches;
+            for (var i = 0; i < changedTouches.length; i++) {
+                var index = getTouchIndex(changedTouches[i].identifier);
+                if (index >= 0) {
+                    touches.splice(index, 1);
+                }
+            }
+            updateKeys();
+        }
+
+        function touchMove(evt) {
+            evt.preventDefault();
+            var changedTouches = evt.changedTouches;
+            for (var i = 0; i < changedTouches.length; i++) {
+                var touch = changedTouches[i];
+                var index = getTouchIndex(touch.identifier);
+                if (index >= 0) {
+                    var key = document.elementFromPoint(touch.pageX, touch.pageY);
+                    if (isKey(key))
+                    touches[index].key = key;
+                }
+            }
+            updateKeys();
+        }
+
+        function getTouchIndex(id) {
+            for (var i = 0; i < touches.length; i++) {
+                if (touches[i].id === id) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        </script>
+
+        <!-- TIC-80 -->
 
 	      <script async type="text/javascript" src="tic.js"></script>
 
