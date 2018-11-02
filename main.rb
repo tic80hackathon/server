@@ -71,3 +71,8 @@ end
 get '/latest_cartridges' do
     CartridgeDAO.latests(10).to_json
 end
+
+get '/url' do
+    list = CartridgeDAO.latests(10)
+    list[0].url
+end
