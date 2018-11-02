@@ -7,7 +7,7 @@ end
 
 class Cartridge < ActiveRecord::Base
     def url
-        'line://app/1618905586-vzX2N2jL?id=' + id
+        'line://app/1618905586-vzX2N2jL?id=' + id.to_s
     end
 end
 
