@@ -60,7 +60,7 @@ class TextMessageHandler
 
     def latest_cartridges2(event, cartridges)
         c = cartridges[0]
-        column =  {
+        column =  [{
             title: c.name,
             text: c.description,
             actions: [
@@ -68,15 +68,13 @@ class TextMessageHandler
               { label: 'Send postback', type: 'postback', data: 'hello world' },
               { label: 'Send message', type: 'message', text: 'This is message' }
             ]
-        }
+        }]
         reply_content(event, {
           type: 'template',
           altText: 'Carousel alt text',
           template: {
             type: 'carousel',
-            columns: [
-                column
-            ]
+            columns: column
           }
         })
     end
