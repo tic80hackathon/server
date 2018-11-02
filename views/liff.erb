@@ -26,29 +26,30 @@
 	      </div>
 
         <script type="text/javascript">
-         liff.init(
-             data => {
-                 liff.sendMessages([
-                     {
-                         type:'text',
-                         text:'Hello, World!'
-                     }
-                 ]).then(() => {
-                     alert('message sent');
-                 });
-             },
-             err => {
-                 // LIFF initialization failed
-             }
-         );
+             liff.init(
+                 data => {
+                     liff.sendMessages([
+                         {
+                             type:'text',
+                             text:'Hello, World!'
+                         }
+                     ]).then(() => {
+                         alert('message sent');
+                     });
+                 },
+                 err => {
+                     // LIFF initialization failed
+                 }
+             );
 
-
-		     var Module = {canvas: document.getElementById('canvas')  
-		         //, arguments:['palette.tic']
-		     };
-
+		         var Module = {canvas: document.getElementById('canvas')
+		             //, arguments:['palette.tic']
+                         , arguments: [
+                             '-uiscale',
+                             '2'
+                         ]
+		         };
 	      </script>
-
 
 	      <script async type="text/javascript" src="tic.js"></script>
 
