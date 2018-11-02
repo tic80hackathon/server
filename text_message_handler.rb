@@ -17,7 +17,7 @@ class TextMessageHandler
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said 2: `#{text}`")
+            reply_text(event, "You said 3: `#{text}`")
         end
     end
 
@@ -66,9 +66,7 @@ class TextMessageHandler
                 title: c.name,
                 text: c.url,
                 actions: [
-                  { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' },
-                  { label: 'Send postback', type: 'postback', data: 'hello world' },
-                  { label: 'Send message', type: 'message', text: 'This is message' }
+                  { label: 'Go to line.me', type: 'uri', uri: 'https://line.me' }
                 ]
             }
             columns.push(column)
