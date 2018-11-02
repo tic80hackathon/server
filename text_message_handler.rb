@@ -10,14 +10,14 @@ class TextMessageHandler
         text = event.message['text']
         case text
         when 'latest'
-            cartridges = CartridgeDAO.latests(10)
+            cartridges = CartridgeDAO.latests(5)
             if cartridges.length > 0
                 latest_cartridges(event, cartridges)
             else
                 reply_text(event, 'No cartridges. Create one !')
             end
         else
-            reply_text(event, "You said 6: `#{text}`")
+            reply_text(event, "Unknown command: `#{text}`")
         end
     end
 
@@ -51,30 +51,6 @@ class TextMessageHandler
         reply_content(event, {
           type: 'template',
           altText: 'List latest cartridges',
-          template: {
-            type: 'carousel',
-            columns: columns
-          }
-        })
-    end
-
-    def latest_cartridges2(event, cartridges)
-        c = cartridges[0]
-        columns = []
-        cartridges.each do |c|
-            column =  {
-                title: c.name,
-                text: c.url,
-                actions: [
-                  { label: 'Go to line.me', type: 'uri', uri: c.url }
-                ]
-            }
-            columns.push(column)
-        end
-
-        reply_content(event, {
-          type: 'template',
-          altText: 'Carousel alt text',
           template: {
             type: 'carousel',
             columns: columns
