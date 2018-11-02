@@ -60,7 +60,7 @@ class TextMessageHandler
 
     def latest_cartridges2(event, cartridges)
         c = cartridges[0]
-        my columns = []
+        columns = []
         cartridges.each do |c|
             column =  {
                 title: c.name,
