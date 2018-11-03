@@ -3,7 +3,7 @@
     <head>
 	      <meta charset="utf-8">
 	      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	      <meta name="viewport" content="width=500">
+	      <meta name="viewport" content="width=512">
 
 	      <title>TIC-80 tiny computer</title>
 
@@ -18,8 +18,8 @@
                 background:#333;
             }
         .key_up {
-            top: 10px;
-            left: 65px;
+            top: 5px;
+            left: 100px;
             height:154px;
             width:105px;
             margin-top: -38.5px;
@@ -32,8 +32,8 @@
             background-image: url("img/up_down.png");
         }
         .key_left {
-            top: -50px;
-            left: 10px;
+            top: -45px;
+            left: 40px;
             height:112px;
             width:150px;
             margin-top: -28px;
@@ -46,8 +46,8 @@
             background-image: url("img/left_down.png");
         }
         .key_right {
-            top: -135px;
-            left: 98px;
+            top: -130px;
+            left: 137px;
             height:112px;
             width:150px;
             margin-top: -28px;
@@ -60,8 +60,8 @@
             background-image: url("img/right_down.png");
         }
         .key_down {
-            top: -185px;
-            left: 65px;
+            top: -170px;
+            left: 100px;
             height:154px;
             width:105px;
             margin-top: -38.5px;
@@ -74,8 +74,8 @@
             background-image: url("img/down_down.png");
         }
         .key_z {
-            top: -315px;
-            left: 205px;
+            top: -305px;
+            left: 260px;
             height:177px;
             width:169px;
             margin-top: -44.25px;
@@ -89,7 +89,7 @@
         }
         .key_x {
             top: -525px;
-            left: 275px;
+            left: 350px;
             height:177px;
             width:169px;
             margin-top: -44.25px;
@@ -105,10 +105,10 @@
 
         <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     </head>
-    <body style="margin:0; padding:0;">
+    <body style="width: 512px; margin:0; padding:0;">
 
         <div>
-	          <div>
+	          <div style="height : 288px;">
 		            <canvas style="margin: 0 auto; display: block;" id="canvas" oncontextmenu="event.preventDefault()" onmousedown="window.focus()"></canvas>
 	          </div>
 
