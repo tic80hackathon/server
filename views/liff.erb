@@ -13,94 +13,97 @@
 
         <!-- Game Controller -->
         <style type="text/css">
-            keyboard {
-                position:relative;
-                background:#333;
-            }
-        .key_up {
-            top: 5px;
-            left: 100px;
-            height:154px;
-            width:105px;
-            margin-top: -38.5px;
-            margin-left: -26.25px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/up.png");
-        }
-        .key_up.down {
-            background-image: url("img/up_down.png");
-        }
-        .key_left {
-            top: -45px;
-            left: 40px;
-            height:112px;
-            width:150px;
-            margin-top: -28px;
-            margin-left: -37.5px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/left.png");
-        }
-        .key_left.down {
-            background-image: url("img/left_down.png");
-        }
-        .key_right {
-            top: -130px;
-            left: 137px;
-            height:112px;
-            width:150px;
-            margin-top: -28px;
-            margin-left: -37.5px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/right.png");
-        }
-        .key_right.down {
-            background-image: url("img/right_down.png");
-        }
-        .key_down {
-            top: -170px;
-            left: 100px;
-            height:154px;
-            width:105px;
-            margin-top: -38.5px;
-            margin-left: -26.25px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/down.png");
-        }
-        .key_down.down {
-            background-image: url("img/down_down.png");
-        }
-        .key_z {
-            top: -305px;
-            left: 260px;
-            height:177px;
-            width:169px;
-            margin-top: -44.25px;
-            margin-left: -42.25px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/z.png");
-        }
-        .key_z.down {
-            background-image: url("img/z_down.png");
-        }
-        .key_x {
-            top: -525px;
-            left: 350px;
-            height:177px;
-            width:169px;
-            margin-top: -44.25px;
-            margin-left: -42.25px;
-            position:relative;
-            -webkit-transform: scale(0.5);
-            background-image: url("img/x.png");
-        }
-        .key_x.down {
-            background-image: url("img/x_down.png");
-        }
+         .keyboard {
+             height: 400px;
+         }
+         .key_up {
+             top: 5px;
+             left: 100px;
+             height:154px;
+             width:105px;
+             margin-top: -38.5px;
+             margin-left: -26.25px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/up.png");
+         }
+         .key_up.down {
+             background-image: url("img/up_down.png");
+         }
+         .key_left {
+             top: -45px;
+             left: 40px;
+             height:112px;
+             width:150px;
+             margin-top: -28px;
+             margin-left: -37.5px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/left.png");
+         }
+         .key_left.down {
+             background-image: url("img/left_down.png");
+         }
+         .key_right {
+             top: -130px;
+             left: 137px;
+             height:112px;
+             width:150px;
+             margin-top: -28px;
+             margin-left: -37.5px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/right.png");
+         }
+         .key_right.down {
+             background-image: url("img/right_down.png");
+         }
+         .key_down {
+             top: -170px;
+             left: 100px;
+             height:154px;
+             width:105px;
+             margin-top: -38.5px;
+             margin-left: -26.25px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/down.png");
+         }
+         .key_down.down {
+             background-image: url("img/down_down.png");
+         }
+         .key_z {
+             top: -305px;
+             left: 260px;
+             height:177px;
+             width:169px;
+             margin-top: -44.25px;
+             margin-left: -42.25px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/z.png");
+         }
+         .key_z.down {
+             background-image: url("img/z_down.png");
+         }
+         .key_x {
+             top: -525px;
+             left: 350px;
+             height:177px;
+             width:169px;
+             margin-top: -44.25px;
+             margin-left: -42.25px;
+             position:relative;
+             -webkit-transform: scale(0.5);
+             background-image: url("img/x.png");
+         }
+         .key_x.down {
+             background-image: url("img/x_down.png");
+         }
+
+         .key_x {
+             background-image: url("img/x.png");
+         }
         </style>
 
         <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
@@ -108,6 +111,7 @@
     <body style="width: 512px; margin:0; padding:0;">
 
         <div>
+
 	          <div style="height : 288px;">
 		            <canvas style="margin: 0 auto; display: block;" id="canvas" oncontextmenu="event.preventDefault()" onmousedown="window.focus()"></canvas>
 	          </div>
@@ -120,10 +124,17 @@
 		            </div>
 	          </div>
 
-            <div contenteditable="true" width="50" height="50">keyboard</div>
-
             <!-- Game Controller -->
             <div id="keyboard">
+                <div style="height: 64px;">
+                    <span id="key_esc" style="margin-left: 20px; height: 32px;">MENU</span>
+                    <span id="key_f1"  style="margin-left: 30px; height: 32px;">CODE</span>
+                    <span id="key_f2"  style="margin-left: 10px; height: 32px;">SPRITE</span>
+                    <span id="key_f3"  style="margin-left: 10px; height: 32px;">MAP</span>
+                    <span id="key_f4"  style="margin-left: 10px; height: 32px;">SFX</span>
+                    <span id="key_f5"  style="margin-left: 10px; height: 32px;">MUSIC</span>
+                </div>
+
                 <div class="key_up" id="key_up"></div>
                 <div class="key_left" id="key_left"></div>
                 <div class="key_right" id="key_right"></div>
@@ -150,6 +161,7 @@
              canvas: document.getElementById('canvas')
              , arguments: [
                  'https://lfk-tic80.herokuapp.com/tic?id=4',
+                 //'palette.tic',
                  '-uiscale',
                  '2'
                  //'-uid',
@@ -177,8 +189,14 @@
                      document.getElementById("key_right"),
                      document.getElementById("key_down"),
                      document.getElementById("key_z"),
-                     document.getElementById("key_x")];
-         var keyCodes = [38, 37, 39, 40, 90, 88];
+                     document.getElementById("key_x"),
+                     document.getElementById("key_f1"),
+                     document.getElementById("key_f2"),
+                     document.getElementById("key_f3"),
+                     document.getElementById("key_f4"),
+                     document.getElementById("key_f5"),
+                     document.getElementById("key_esc")];
+         var keyCodes = [38, 37, 39, 40, 90, 88, 112, 113, 114, 115, 116, 27];
          var keyboard = document.getElementById('keyboard');
          var touches = [];
 
