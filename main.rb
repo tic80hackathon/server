@@ -69,15 +69,15 @@ post '/upload' do
     end
   # TODO: handle uploading name and description.
   name = params[:name]
-  desc = params[:description]
+  desc = params[:description] || '...'
   user_id = params[:user_id]
   display_name = params[:display_name]
-  cartridge = CartridgeDAO.create(
-    tic,
-    name,
-    desc,
-    user_id,
-    display_name
+  cartridge = Cartridge.create(
+    tic: tic,
+    name: name,
+    description: desc,
+    user_id: user_id,
+    display_name: display_name
   )
   cartridge.url
 end
