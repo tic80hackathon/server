@@ -162,12 +162,11 @@
          var Module = {
              canvas: document.getElementById('canvas')
              , arguments: [
-                 'https://lfk-tic80.herokuapp.com/tic?id=4',
-                 //'palette.tic',
+                 <% if params[:id] %>
+                 'https://lfk-tic80.herokuapp.com/tic?id=<%= params[:id] %>',
+                 <% end %>
                  '-uiscale',
                  '2'
-                 //'-uid',
-                 //data.context.userId
              ]
          };
 
